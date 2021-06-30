@@ -21,6 +21,7 @@
     position: fixed;
     left: 50%;
     top: 50%;
+
     background-color: rgba(0,0,0,.8);
     padding: 10px;
     border-radius: 5px;

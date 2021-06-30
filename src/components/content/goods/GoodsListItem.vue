@@ -1,23 +1,38 @@
 <template>
-  <div>
-    <img :src="goodsItem.show.img" alt="">
-    <div>
+  <div class="goods-item" @click="itemClick">
+    <img v-lazy="showImage" alt="" @load="imageLoad">
+    <div class="goods-info">
       <p>{{goodsItem.title}}</p>
-      <span class="price">{{goods.price}}</span>
-      <span class="collect">{{goods.cfav}}</span>
+      <span class="price">{{goodsItem.price}}</span>
+      <span class="collect">{{goodsItem.cfav}}</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "GoodsList",
-  goodsItem:{
-    type: Object,
-    default(){
-      return {}
+  name: "GoodsListItem",
+  props:{
+    goodsItem:{
+      type: Object,
+      default(){
+        return {}
+      }
     }
-  }
+  },
+  computed:{
+    showImage(){
+      return this.product.image || this.product.show.img
+    },
+  },
+  methods:{
+    itemClick(){
+      this.$router.push('/detail/'+this.goodsItem.iid)
+    },
+    imageLoad(){
+      this.$bus.$emit('itemImageLoad')
+    },
+  },
 }
 </script>
 

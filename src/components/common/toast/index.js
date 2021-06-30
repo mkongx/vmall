@@ -18,11 +18,12 @@ plugin.install = (Vue) => {
 	}
 
 	Vue.prototype.$toast = (options={}) => {
-		// 1.将创建出来的组件,挂载到某个div中
+		// 1.new创建组件构造器
 		const toast = new ToastConstructor()
+    // 2.挂载到某个元素(div)中
 		toast.$mount(document.createElement('div'))
 
-		// 2.将toast的$el添加到body中
+		// 3.将toast的$el添加到body中----toast.$el就是div元素
 		document.body.appendChild(toast.$el)
 
 		// 3.获取用户自定义数据

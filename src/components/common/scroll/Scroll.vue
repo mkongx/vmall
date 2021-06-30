@@ -1,6 +1,6 @@
 <template>
   <div ref="wrapper" class="wrapper">
-    <div>
+    <div class="content">
       <slot></slot>
     </div>
   </div>
@@ -53,18 +53,20 @@
           pullUpLoad: this.pullUpLoad
         })
 
-        // 2.事件滚动
+        // 2.监听事件滚动
         if (this.probeType === 2 || this.probeType === 3) {
           this.scroll.on('scroll', position => {
             // console.log(position);
             this.$emit('scroll', position)
           })
+          console.log(this.scroll);
+          this.scroll.refresh()
         }
 
-        // 3.上拉加载
+        // 3.上拉加载 监听scroll滚动到底部
         if (this.pullUpLoad) {
           this.scroll.on('pullingUp', () => {
-            // console.log('上拉加载更多');
+             // console.log('上拉加载更多');
             this.$emit('pullingUp')
           })
         }
@@ -77,7 +79,10 @@
       },
       scrollTo(x, y, time=100) {
         this.scroll && this.scroll.scrollTo && this.scroll.scrollTo(x, y, time)
-      }
+      },
+      getScrollY(){
+        return this.scroll ? this.scroll.y : 0
+      },
     },
     watch: {
       data() {
